@@ -9,6 +9,7 @@ import java.util.Set;
 public class PhysCube {
     private CubeConfig cubeConfig;
     private Set<GpioPinDigitalOutput> doZpalaenia;
+    private Set<GpioPinDigitalOutput> doZgaszenia;
     private static PhysCube instance;
 
     public static PhysCube getInstance() {
@@ -21,25 +22,27 @@ public class PhysCube {
     private PhysCube() {
         cubeConfig = CubeConfig.getInstance();
         doZpalaenia = new HashSet<>();
+        doZgaszenia = new HashSet<>();
     }
 
-    public void zapal(GpioPinDigitalOutput...pins) {
-        for(int i = 0; i <pins.length; i++)
-            doZpalaenia.add(pins[i]);
+    public void zapal(GpioPinDigitalOutput pinKolumna, GpioPinDigitalOutput pinWarstwa) {
+        doZpalaenia.add(pinKolumna);
+        doZgaszenia.add(pinWarstwa);
     }
 
     public void wyczysc() {
         doZpalaenia.clear();
+        doZgaszenia.clear();
     }
 
     public void execute() {
-        doZpalaenia.forEach(gpioPin -> gpioPin.high());
+        doZpalaenia.forEach(gpioPin -> gpioPin.low());
+        doZgaszenia.forEach(gpioPin -> gpioPin.high());
     }
 
     public void showPhysCube() {
-        doZpalaenia.stream()
-                .filter(gpioPin -> gpioPin.getState() == PinState.HIGH)
-                .forEach(gpioPin -> System.out.println(gpioPin));
+        doZpalaenia.forEach(gpioPin -> System.out.println(gpioPin + "STAN:" + gpioPin.getState()));
+        doZgaszenia.forEach(gpioPin -> System.out.println(gpioPin + "STAN:" + gpioPin.getState()));
         }
 
 }
