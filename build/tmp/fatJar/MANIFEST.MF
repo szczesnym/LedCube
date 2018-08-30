@@ -1,0 +1,8 @@
+Manifest-Version: 1.0
+Build-Timestamp: 2018-08-30T13:53:38.892+0200
+Built-By: marcins
+Build-OS: Windows 7 amd64 6.1
+Created-By: Gradle 4.9
+Build-Jdk: 1.8.0_111 (Oracle Corporation 25.111-b14)
+Main-Class: com.privat.ledCube.CubeApplication
+
